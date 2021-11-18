@@ -1,4 +1,4 @@
-import  axios from 'axios'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
@@ -12,12 +12,12 @@ export default function Index() {
     const [disponible, setDisponible] = useState(['true','false'])
     const [disponibleSelect, setDisponibleselect] = useState('')
 
-    useEffect(() => {
+     useEffect(() => {
         obtenerProductos()
        
-        setDisponibleselect('false')
+        setDisponibleselect(['true', 'false'])
 
-    }, [])
+    }, []) 
 
     const obtenerProductos = async () => {
         const id = sessionStorage.getItem('idProducto')
@@ -34,13 +34,25 @@ export default function Index() {
         const respuesta=await axios.delete('http://localhost:4000/producto/eliminar/'+id,{
             headers:{'autorizacion':token }
         })
-        const mensaje=respuesta.data.mensaje
-       Swal.fire({
-           icon:'success',
-           tittle:mensaje,
-           showConfirmButton: false,
-           timer:1500
-       })
+        const mensaje=respuesta.data.mensaje 
+        Swal.fire({
+          title: '¿Está seguro?',
+          text: "Usted no podrá revertirla información!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              'Borrado!',
+              'Su producto ha sido borrado.',
+              'Con éxito'
+            )
+          }
+        })
+         
        obtenerProductos()
     }
 
@@ -68,6 +80,19 @@ export default function Index() {
            window.location.href='/index'
        },1500)
     }
+    const buscar = async (e) => {
+
+        if (e.target.value === "") { return obtenerProductos() }
+        const buscar = e.target.value
+        const token = sessionStorage.getItem("token")
+        const respuesta = await axios.get("http://localhost:4000/productos/buscar/" + buscar, {
+            headers: { 'autorizacion': token }
+        })
+        console.log(respuesta.data)
+        setProductos(respuesta.data)
+    }
+
+
 
 
     return (
@@ -143,7 +168,7 @@ export default function Index() {
                                                         <button className='btn btn-danger mr-1' onClick={()=>eliminar(producto._id)}>
                                                             eliminar
                                                         </button>
-                                                        <Link className='btn btn-primary mr-1'to={'/editar/'+producto._id}>
+                                                        <Link className='btn btn-primary mr-1'to={'/actualizar/'+producto._id}>
                                                             editar
                                                         </Link>
 
