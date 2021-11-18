@@ -34,14 +34,16 @@ export default function Registro() {
             sessionStorage.setItem("idusuario", idusuario)
             sessionStorage.setItem("rol", rol)
 
-            window.location.href="/index"
-
-            Swal.fire({
+            let { isConfirmed } = await Swal.fire({
                 icon: "success",
                 title: mensaje,
-                showConfirmButton: false,
-                timer: 2500
+                showConfirmButton: true,
             })
+            // busca como cambiar de componente en react
+            if (isConfirmed) {
+                window.location.href = "/login"
+            }
+
         }
 
     }

@@ -9,86 +9,84 @@ export default function Index() {
     const [titulo, setTitulo] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [precio, setPrecio] = useState('')
-    const [disponible, setDisponible] = useState(['true','false'])
-    const [disponibleSelect, setDisponibleselect] = useState('')
+    const [disponible, setDisponible] = useState(['true', 'false'])
+    const [disponibleSelect, setDisponibleselect] = useState('true')
 
-     useEffect(() => {
+    useEffect(() => {
         obtenerProductos()
-       
-        setDisponibleselect(['true', 'false'])
 
-    }, []) 
+    }, [])
 
     const obtenerProductos = async () => {
         const id = sessionStorage.getItem('idProducto')
         const token = sessionStorage.getItem('token')
-        const respuesta = await axios.get('http://localhost:4000/producto/listarproductos' ,
+        const respuesta = await axios.get('http://localhost:4000/producto/listarproductos',
             {
                 headers: { 'autorizacion': token }
-            }).catch(function (error){console.log(error)})
+            }).catch(function (error) { console.log(error) })
         setProductos(respuesta.data)
         console.log(respuesta)
     }
-    const eliminar=async(id)=>{
+    const eliminar = async (id) => {
         const token = sessionStorage.getItem('token')
-        const respuesta=await axios.delete('http://localhost:4000/producto/eliminar/'+id,{
-            headers:{'autorizacion':token }
+        const respuesta = await axios.delete('http://localhost:4000/producto/eliminar/' + id, {
+            headers: { 'autorizacion': token }
         })
-        const mensaje=respuesta.data.mensaje 
+        const mensaje = respuesta.data.mensaje
         Swal.fire({
-          title: '¿Está seguro?',
-          text: "Usted no podrá revertirla información!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
+            title: '¿Está seguro?',
+            text: "Usted no podrá revertirla información!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire(
-              'Borrado!',
-              'Su producto ha sido borrado.',
-              'Con éxito'
-            )
-          }
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Borrado!',
+                    'Su producto ha sido borrado.',
+                    'Con éxito'
+                )
+            }
         })
-         
-       obtenerProductos()
+
+        obtenerProductos()
     }
 
-    
-    const guardar=async(e)=>{
-       e.preventDefault()
-       const product ={
-           titulo,
-           descripcion,
-           precio,
-           disponible:disponibleSelect
-       }
 
-       const token =sessionStorage.getItem('token')
-       const respuesta=await axios.post('http://localhost:4000/producto/crear',product,{
-           headers:{'autorizacion':token }
-       })
-       const mensaje=respuesta.data.mensaje
-       Swal.fire({
-           icon:'success',
-           tittle:mensaje,
-           showConfirmButton: false
-       })
-       setTimeout(()=>{
-           window.location.href='/index'
-       },1500)
+    const guardar = async (e) => {
+        e.preventDefault()
+        const product = {
+            titulo,
+            descripcion,
+            precio,
+            disponible: disponibleSelect
+        }
+        console.log(disponibleSelect)
+        const token = sessionStorage.getItem('token')
+        const respuesta = await axios.post('http://localhost:4000/producto/crear', product, {
+            headers: { 'autorizacion': token }
+        })
+        const mensaje = respuesta.data.mensaje
+        Swal.fire({
+            icon: 'success',
+            tittle: mensaje,
+            showConfirmButton: false
+        })
+        setTimeout(() => {
+            window.location.href = '/index'
+        }, 1500)
     }
     const buscar = async (e) => {
 
         if (e.target.value === "") { return obtenerProductos() }
         const buscar = e.target.value
         const token = sessionStorage.getItem("token")
-        const respuesta = await axios.get("http://localhost:4000/productos/buscar/" + buscar, {
+        const respuesta = await axios.get("http://localhost:4000/producto/buscar/" + buscar, {
             headers: { 'autorizacion': token }
         })
-        console.log(respuesta.data)
+        console.log(respuesta)
         setProductos(respuesta.data)
     }
 
@@ -124,7 +122,7 @@ export default function Index() {
                     </div>
                     <div className="col-md-6 ml-auto">
                         <div className="input-group">
-                            <input className='form-control mr-sm-2' type='search' placeholder='Buscar...' aria-label='search'>
+                            <input type="search" className="form-control mr-sm-2" placeholder="Buscar...." aria-label="Search" onChange={(e) => buscar(e)} >
 
                             </input>
                         </div>
@@ -156,19 +154,19 @@ export default function Index() {
                                     <tbody>
                                         {
                                             productos.map((producto, i) => (
-                                                
+
                                                 <tr key={producto._id}>
-                                                    
+
                                                     <td>{i + 1}</td>
                                                     <td>{producto.titulo}</td>
                                                     <td>{producto.descripcion}</td>
                                                     <td>{producto.precio}</td>
                                                     <td>{producto.disponible}</td>
                                                     <td>
-                                                        <button className='btn btn-danger mr-1' onClick={()=>eliminar(producto._id)}>
+                                                        <button className='btn btn-danger mr-1' onClick={() => eliminar(producto._id)}>
                                                             eliminar
                                                         </button>
-                                                        <Link className='btn btn-primary mr-1'to={'/actualizar/'+producto._id}>
+                                                        <Link className='btn btn-primary mr-1' to={'/actualizar/' + producto._id}>
                                                             editar
                                                         </Link>
 
@@ -236,7 +234,7 @@ export default function Index() {
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <button  className='btn btn-primary' type='submit'>
+                                    <button className='btn btn-primary' type='submit'>
                                         Guardar
 
                                     </button>

@@ -10,6 +10,7 @@ import IndexVentas from './components/IndexVentas';
 import Registro from './components/Registro';
 import Actualizarventa from './components/Actualizarventa';
 import ActualizarUsuario from './components/ActualizarUsuario';
+import Home from './components/home';
 
 function App() {
   return (
@@ -23,10 +24,11 @@ function App() {
     <Route path='/actualizar/:id' component={Actualizar}/>
     <Route path='/ventas' component={IndexVentas}/>
     <Route path='/Usuarios' component={Usuarios}/>
-    <Route path='/registro' component={Registro}/>
+    <Route path='/registrar' component={Registro}/>
     <Route path='/Actualizarventa/:id' component={Actualizarventa}/>
     <Route path='Indexventa' component={IndexVentas}/>
-    <Route path='/' component={ActualizarUsuario}/>
+    {/* <Route path='/' component={ActualizarUsuario}/> */}
+    <Route path='/' component={Home}/>
     
     
 // 

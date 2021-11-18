@@ -54,7 +54,7 @@ export default function Actualizar(props) {
                     showConfirmButton:false
                 })
                 setTimeout(()=>{
-                    window.location.href='/index'
+                    window.location.href='/productos'
                 },1500)
         }
 

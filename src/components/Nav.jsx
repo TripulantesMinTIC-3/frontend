@@ -7,7 +7,7 @@ export default function Nav() {
         )
 
     }
-    return (
+    return (        
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
             <Link className="navbar-brand" to="/">Inicio</Link>
@@ -18,6 +18,9 @@ export default function Nav() {
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item active">
                         <Link className="nav-link" to="/index"><i className='fas fa-user'></i>Bienvenido </Link>
+                    </li>
+                    <li className="nav-item active">
+                        <Link className="nav-link" to="/login"><i className='fas fa-user'></i>Login </Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/"onClick={()=>salir}><i className='fas fa-user-times'></i>Salir</Link>
