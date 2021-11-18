@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Actualizar from './components/Actualizar';
 import Index from './components/Index';
 import Login from './components/Login';
@@ -11,6 +11,23 @@ import Registro from './components/Registro';
 import Actualizarventa from './components/Actualizarventa';
 import ActualizarUsuario from './components/ActualizarUsuario';
 import Home from './components/home';
+import Inicio from './components/Inicio';
+const estaAutenticado =()=>{
+  const token = sessionStorage.getItem('token')
+  if(token){
+    return true
+  }else{
+    return false
+  }
+}
+const MyRoute=(props)=>{
+  return estaAutenticado()?<Route {...props}/>: <Redirect to='/login'/>
+
+}
+const PublicRoute=(props)=>{
+  return estaAutenticado()?<Redirect to="/index"/>: <Route {...props}/>;
+
+};
 
 function App() {
   return (
@@ -19,15 +36,16 @@ function App() {
   <Nav/>
   <Switch>
     
-    <Route path='/login' component={Login}/>
-    <Route path='/productos' component= {Index}/>
-    <Route path='/actualizar/:id' component={Actualizar}/>
-    <Route path='/ventas' component={IndexVentas}/>
-    <Route path='/Usuarios' component={Usuarios}/>
+    <PublicRoute path='/login' component={Login}/>
+    <MyRoute path='/productos' component= {Index}/>
+    <MyRoute path='/actualizar/:id' component={Actualizar}/>
+    <MyRoute path='/ventas' component={IndexVentas}/>
+    <MyRoute path='/Usuarios' component={Usuarios}/>
     <Route path='/registrar' component={Registro}/>
-    <Route path='/Actualizarventa/:id' component={Actualizarventa}/>
-    <Route path='Indexventa' component={IndexVentas}/>
-    {/* <Route path='/' component={ActualizarUsuario}/> */}
+    <MyRoute path='/Actualizarventa/:id' component={Actualizarventa}/>
+    <MyRoute path='Indexventa' component={IndexVentas}/>
+    <MyRoute path='/Actualizarusuario/:id' component={ActualizarUsuario}/>
+    <MyRoute path='/Inicio' component={Inicio}/> 
     <Route path='/' component={Home}/>
     
     

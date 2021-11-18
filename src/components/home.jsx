@@ -1,13 +1,20 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import tienda from './assets/img/tienda.jpg'
+
+
 export default function Nav() {
     const salir =()=>{
         sessionStorage.clear(
-            window.location.href=('/')
+        window.location.href=('/')
         )
 
     }
     return (
-        <p>home page</p>
+    <div align="center" >
+        
+        <img src={tienda} width="100%" alt=""/>
+    
+
+    </div>
     )
-}
+};

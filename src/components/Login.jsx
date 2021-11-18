@@ -26,7 +26,7 @@ export default function Login() {
             sessionStorage.setItem('token', token)
             sessionStorage.setItem('nombre', nombres)
             sessionStorage.setItem('idusuario', idusuario)
-            window.location.href = '/index'
+            window.location.href = '/Inicio'
 
             let { isConfirmed } = await Swal.fire({
                 icon: "success",
@@ -35,7 +35,7 @@ export default function Login() {
             })
             // busca como cambiar de componente en react
             if (isConfirmed) {
-                window.location.href = "/"
+                window.location.href = "/login"
             }
         }
 
