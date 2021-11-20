@@ -29,7 +29,7 @@ export default function Ventas() {
     const obtenerProductos = async () => {
         const id = sessionStorage.getItem('idProducto')
         const token = sessionStorage.getItem('token')
-        const respuesta = await Axios.get('http://localhost:4000/producto/listarproductos',
+        const respuesta = await Axios.get('https://vendigmachine.herokuapp.com/producto/listarproductos',
             {
                 headers: { 'autorizacion': token }
             }).catch(function (error) { console.log(error) })
@@ -39,7 +39,7 @@ export default function Ventas() {
 
         const id = sessionStorage.getItem('idventas')
         const token = sessionStorage.getItem('token')
-        const respuesta = await Axios.get('http://localhost:4000/ventas/listarventas',
+        const respuesta = await Axios.get('https://vendigmachine.herokuapp.com/ventas/listarventas',
             {
                 headers: { 'autorizacion': token }
             }).catch(function (error) { console.log(error) })
@@ -50,7 +50,7 @@ export default function Ventas() {
 
     const eliminar = async (id) => {
         const token = sessionStorage.getItem('token')
-        const respuesta = await Axios.delete('http://localhost:4000/ventas/delete/' + id, {
+        const respuesta = await Axios.delete('https://vendigmachine.herokuapp.com/ventas/delete/' + id, {
             headers: { 'autorizacion': token }
         })
         const mensaje = respuesta.data.mensaje
@@ -82,7 +82,7 @@ export default function Ventas() {
 
         }
         const token = sessionStorage.getItem("token")
-        const respuesta = await Axios.post("http://localhost:4000/ventas/crear", Ventas,
+        const respuesta = await Axios.post("https://vendigmachine.herokuapp.com/ventas/crear", Ventas,
             { headers: { 'autorizacion': token } })
         const mensaje = respuesta.data.mensaje
         Swal.fire({
@@ -97,7 +97,7 @@ export default function Ventas() {
         if (e.target.value === "") { return obtenerVentas() }
         const buscar = e.target.value
         const token = sessionStorage.getItem("token")
-        const respuesta = await Axios.get("http://localhost:4000/ventas/buscar/" + buscar, {
+        const respuesta = await Axios.get("https://vendigmachine.herokuapp.com/ventas/buscar/" + buscar, {
             headers: { 'autorizacion': token }
         })
         console.log(respuesta.data)

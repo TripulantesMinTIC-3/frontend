@@ -1,4 +1,4 @@
-import axios from 'axios'
+import Axios from 'axios'
 import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
@@ -20,7 +20,7 @@ export default function Index() {
     const obtenerProductos = async () => {
         const id = sessionStorage.getItem('idProducto')
         const token = sessionStorage.getItem('token')
-        const respuesta = await axios.get('http://localhost:4000/producto/listarproductos',
+        const respuesta = await Axios.get('https://vendigmachine.herokuapp.com/producto/listarproductos',
             {
                 headers: { 'autorizacion': token }
             }).catch(function (error) { console.log(error) })
@@ -29,7 +29,7 @@ export default function Index() {
     }
     const eliminar = async (id) => {
         const token = sessionStorage.getItem('token')
-        const respuesta = await axios.delete('http://localhost:4000/producto/eliminar/' + id, {
+        const respuesta = await Axios.delete('https://vendigmachine.herokuapp.com/producto/eliminar/' + id, {
             headers: { 'autorizacion': token }
         })
         const mensaje = respuesta.data.mensaje
@@ -65,7 +65,7 @@ export default function Index() {
         }
         console.log(disponibleSelect)
         const token = sessionStorage.getItem('token')
-        const respuesta = await axios.post('http://localhost:4000/producto/crear', product, {
+        const respuesta = await Axios.post('https://vendigmachine.herokuapp.com/producto/crear', product, {
             headers: { 'autorizacion': token }
         })
         const mensaje = respuesta.data.mensaje
@@ -83,7 +83,7 @@ export default function Index() {
         if (e.target.value === "") { return obtenerProductos() }
         const buscar = e.target.value
         const token = sessionStorage.getItem("token")
-        const respuesta = await axios.get("http://localhost:4000/producto/buscar/" + buscar, {
+        const respuesta = await Axios.get("https://vendigmachine.herokuapp.com/producto/buscar/" + buscar, {
             headers: { 'autorizacion': token }
         })
         console.log(respuesta)

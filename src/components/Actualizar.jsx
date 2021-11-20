@@ -1,4 +1,4 @@
-import axios from 'axios'
+import Axios from 'axios'
 import React,{ useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 
@@ -21,7 +21,7 @@ export default function Actualizar(props) {
     const obtenerProducto = async () => {
         const id = props.match.params.id
         const token = sessionStorage.getItem('token')
-        const respuesta=await axios.get('http://localhost:4000/producto/listar/'+id,{
+        const respuesta=await Axios.get('https://vendigmachine.herokuapp.com/producto/listar/'+id,{
             headers: { 'autorizacion': token }
         })
         
@@ -42,7 +42,7 @@ export default function Actualizar(props) {
                 disponible:disponibleSelect
 
             }
-            const respuesta=await axios.put('http://localhost:4000/producto/actualizar/'+id,producto,{
+            const respuesta=await Axios.put('https://vendigmachine.herokuapp.com/producto/actualizar/'+id,producto,{
                 headers:{
                     'autorizacion':token
                 }

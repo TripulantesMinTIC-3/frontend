@@ -43,7 +43,7 @@ function App() {
     <MyRoute path='/Usuarios' component={Usuarios}/>
     <Route path='/registrar' component={Registro}/>
     <MyRoute path='/Actualizarventa/:id' component={Actualizarventa}/>
-    <MyRoute path='Indexventa' component={IndexVentas}/>
+    <MyRoute path='/Indexventa' component={IndexVentas}/>
     <MyRoute path='/Actualizarusuario/:id' component={ActualizarUsuario}/>
     <MyRoute path='/Inicio' component={Inicio}/> 
     <Route path='/' component={Home}/>

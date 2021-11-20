@@ -10,7 +10,7 @@ export default function Login() {
     const Login = async (e) => {
         e.preventDefault()
         const usuario = { correo, contrasena }
-        const respuesta = await Axios.post('http://localhost:4000/Usuarios/login', usuario)
+        const respuesta = await Axios.post('https://vendigmachine.herokuapp.com/Usuarios/login', usuario)
         const mensaje = respuesta.data.mensaje
         if (mensaje !== 'Bienvenido') {
             Swal.fire({
@@ -49,7 +49,7 @@ export default function Login() {
                         <div className="container text-center fa-4x">
                             <i className="fas fa-users"></i>
                         </div>
-                        <div clasName="card-header text-center">
+                        <div clasName="card-header text-center"align="center">
                             <h4> Inicio de sesión </h4>
                         </div>
                         <div className="card-body">

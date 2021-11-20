@@ -50,7 +50,7 @@ export default function Actualizar(props) {
             correo,
             activo: activoSeleccionado
         }
-        const respuesta = await Axios.put('http://localhost:4000/usuarios/actualizarUsuario/' + id, usuario, {
+        const respuesta = await Axios.put('https://vendigmachine.herokuapp.com/usuarios/actualizarUsuario/' + id, usuario, {
             headers: { 'autorizacion': token }
         })
         const mensaje = respuesta.data.mensaje

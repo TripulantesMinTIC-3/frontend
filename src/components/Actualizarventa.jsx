@@ -28,7 +28,7 @@ export default function Actualizarventa(props) {
     const obtenerProductos = async () => {
         const id = sessionStorage.getItem('idProducto')
         const token = sessionStorage.getItem('token')
-        const respuesta = await Axios.get('http://localhost:4000/producto/listarproductos',
+        const respuesta = await Axios.get(' https://vendigmachine.herokuapp.com/producto/listarproductos',
             {
                 headers: { 'autorizacion': token }
             }).catch(function (error) { console.log(error) })
@@ -37,7 +37,7 @@ export default function Actualizarventa(props) {
     const obtenerVentas = async () => {
         const id = props.match.params.id
         const token = sessionStorage.getItem('token')
-        const respuesta = await Axios.get('http://localhost:4000/ventas/listar/' + id, {
+        const respuesta = await Axios.get('/ventas/listar/' + id, {
             headers: { 'autorizacion': token }
         })
         setFecha_Venta(respuesta.data.Fecha_Venta)
@@ -69,7 +69,7 @@ export default function Actualizarventa(props) {
 
 
         }
-        const respuesta = await Axios.put('http://localhost:4000/ventas/actualizar/' + id, {
+        const respuesta = await Axios.put('https://vendigmachine.herokuapp.com/ventas/actualizar/' + id, {
             headers: { 'autorizacion': token }
         })
         const mensaje = respuesta.data.mensaje

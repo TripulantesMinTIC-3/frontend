@@ -14,7 +14,7 @@ export default function Registro() {
     const Registrar = async (e) => {
         e.preventDefault()
         const usuario = { nombre, correo, contrasena }
-        const respuesta = await Axios.post("http://localhost:4000/usuarios/Registrar", usuario)
+        const respuesta = await Axios.post("https://vendigmachine.herokuapp.com/usuarios/Registrar", usuario)
         const mensaje = respuesta.data.mensaje
         console.log(respuesta)
         if (mensaje !== "Bienvenido") {

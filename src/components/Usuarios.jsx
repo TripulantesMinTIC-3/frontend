@@ -18,7 +18,7 @@ export default function Usuarios() {
     const obtenerUsuarios = async () => {
 
         const token = sessionStorage.getItem("token")
-        const respuesta = await Axios.get("http://localhost:4000/usuarios/listar",
+        const respuesta = await Axios.get("https://vendigmachine.herokuapp.com/usuarios/listar",
             { headers: { 'autorizacion': token } })
 
         setUsuario(respuesta.data)
@@ -29,7 +29,7 @@ export default function Usuarios() {
 
     const eliminar = async (id) => {
         const token = sessionStorage.getItem("token")
-        const respuesta = await Axios.delete("http://localhost:4000/usuarios/delete/" + id, { headers: { 'autorizacion': token } })
+        const respuesta = await Axios.delete("https://vendigmachine.herokuapp.com/usuarios/delete/" + id, { headers: { 'autorizacion': token } })
         const mensaje = respuesta.data.mensaje
         Swal.fire({
             icon: "success",
@@ -44,7 +44,7 @@ export default function Usuarios() {
         if (e.target.value === "") { return obtenerUsuarios() }
         const buscar = e.target.value
         const token = sessionStorage.getItem("token")
-        const respuesta = await Axios.get("http://localhost:4000/usuarios/buscar/" + buscar, {
+        const respuesta = await Axios.get("https://vendigmachine.herokuapp.com/usuarios/buscar/" + buscar, {
             headers: { 'autorizacion': token }
         })
         console.log(respuesta.data)
